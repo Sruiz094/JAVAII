@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -19,7 +18,7 @@ public class CuentaServices {
     CuentaRepository cuentaRepository;
 
     public Cuenta save(Cuenta cuenta) throws Exception{
-        Cuenta cuentaExistente =cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta());
+        Cuenta cuentaExistente = cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta());
 
         if(cuentaExistente!= null) {
             throw new Exception("Existe una cuenta asociada al numero: "+cuenta.getNumeroCuenta());
@@ -34,13 +33,13 @@ public class CuentaServices {
 
         return cuentaRepository.save(cuenta);
     }
-    public Cuenta get(Long idCuenta) throws  Exception{
+    public Cuenta get(String idCuenta) throws  Exception{
 
-        return cuentaRepository.getReferenceById(idCuenta);
+        return cuentaRepository.findByNumeroCuenta(idCuenta);
     }
 
     public Cuenta update(Cuenta cuenta) throws Exception{
-        Cuenta cuentaExistente =cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta());
+        Cuenta cuentaExistente = cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta());
         if(cuentaExistente== null) {
             throw new Exception("No existe una cuenta asociada al numero: "+cuenta.getNumeroCuenta());
         }
@@ -50,8 +49,9 @@ public class CuentaServices {
         return cuentaRepository.save(cuentaExistente);
     }
 
-    public void delete(String cuenta){
+    public String delete(String cuenta){
         cuentaRepository.deleteByNumeroCuenta(cuenta);
+        return("OK");
     }
 
 

@@ -1,5 +1,6 @@
 package com.ps.jac16.services;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ps.jac16.model.Cuenta;
 import com.ps.jac16.model.Transferencia;
 import com.ps.jac16.repository.CuentaRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
+
 
 @Service
 public class TranferenciaServices {
@@ -36,7 +38,7 @@ public class TranferenciaServices {
     }
 
     public Transferencia get (Long idTransferencia) throws Exception {
-        return transferenciaRepository.getById(idTransferencia);
+        return transferenciaRepository.findById(idTransferencia).get();
     }
     public void delete (Transferencia transferencia){ transferenciaRepository.delete(transferencia);
 
